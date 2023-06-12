@@ -48,7 +48,7 @@ foreach my $counts (@counts){
 	if($line =~ m/pos/){
 	    print D $line, "\t", "GeneInfo", "\n";
 	}else{
-	    if(!(exists($gene{$c[0] . "\t" . $c[1]}))){ #no genes found at this SNP - should not be possible
+	    if(!(exists($gene{$c[0] . "\t" . $c[1]}))){
 		print D $line, "\t", "NA\n";
 	    }elsif(exists($gene{$c[0] . "\t" . $c[1]})){
 		print D $line, "\t";
