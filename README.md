@@ -5,11 +5,11 @@ This contains the set of custom perl scripts used to identify distinguishing SNP
 
 The order of the scripts is as follows:
 
-1) Identify_SNPs.pl 
+1) Identify_SNPs.pl - This script uses input from the DGRP SNPs and positions of genes from Flybase and produces a table with all SNPs between the focal lines.
 
-2) Identify_genes_for_each_site.pl
+2) Identify_genes_for_each_site.pl - This script takes the output from Identify_SNPs.pl and labels them by the gene they are associated with.
 
-3) label_SNPs_by_category.pl
+3) label_SNPs_by_category.pl - This script takes the output from Identify_genes_for_each_site.pl and labels them by context; i.e. UTR, exon, intron. 
 
 4) run_bcf_for_ALLSNPs.sh
 
