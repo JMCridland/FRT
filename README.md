@@ -19,4 +19,7 @@ The order of the scripts is as follows:
 12) get_transcript_cov_from_SNPs.pl
 13) get_FRT_high_confidence_expressed_transcripts.pl
 14) make_reference_specific_transcripts.pl
-15) 
+15) update_high_confidence_with_psr_reads.pl
+16) make_FRT_abund.pl
+
+
