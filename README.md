@@ -11,7 +11,7 @@ The order of the scripts is as follows:
 
 3) label_SNPs_by_category.pl - This script takes the output from Identify_genes_for_each_site.pl and labels them by context; i.e. UTR, exon, intron. 
 
-4) run_bcf_for_ALLSNPs.sh
+4) run_bcf_for_ALLSNPs.sh - 
 
 5) compare_dgrpSNPs_to_vcfl_ALL.pl
 
