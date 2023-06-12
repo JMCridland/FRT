@@ -2,8 +2,8 @@
 
 use strict;
 
-my $pos = shift(@ARGV) or die;#/data/julie/FemaleRT/ALL_SNPs_table
-my $exon = shift(@ARGV) or die; #/data/FlyRef/Drosophila_melanogaster/6.41/fasta/Dmel_exon_ranges 
+my $pos = shift(@ARGV) or die;#ALL_SNPs_table - produced by Identify_SNPs.pl
+my $exon = shift(@ARGV) or die; #A file with the positions of exons in genes - ex: FBgn0031081     X       19965197        19965511
 my $output = shift(@ARGV) or die;
 unlink(qq{$output});
 
@@ -24,7 +24,6 @@ open(E, "<$exon");
 while(my $line = <E>){
     chomp $line;
     my @e = split(/\t/, $line);
-    ##FBgn0031081     X       19965197        19965511
     for(my $i = $e[2]; $i < $e[3]; $i++){
 	if(exists($pos{$e[1] . "\t" . $i})){
 	    if(!(exists($used{$e[1] . "\t" . $i . "\t" . $e[0]}))){
