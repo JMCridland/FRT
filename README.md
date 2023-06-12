@@ -6,4 +6,7 @@ This contains the set of custom perl scripts used to identify distinguishing SNP
 The order of the scripts is as follows:
 
 1) Identify_SNPs.pl
-2) 
+2) Identify_genes_for_each_site.pl
+3) label_SNPs_by_category.pl
+4) run_bcf_for_ALLSNPs.sh
+5) 
