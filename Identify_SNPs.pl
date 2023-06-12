@@ -2,8 +2,8 @@
 
 use strict;
 
-my $snps = shift(@ARGV) or die;#/data/julie/Denovo/loose_files/DGRP.r6.snps.gz
-my $pos = shift(@ARGV) or die;#/data/FlyRef/Dmel_r6.41_gene_ranges
+my $snps = shift(@ARGV) or die;#DGRP.r6.snps.gz - a tab separated file with the DGRP SNP information just for the lines included in the analysis
+my $pos = shift(@ARGV) or die;#A tab separated file with the positions of each gene in the genome
 my $output = shift(@ARGV) or die;
 unlink(qq{$output});
 
@@ -11,7 +11,6 @@ my %keeppos = ();
 my $head = "";
 my $total = 0;
 open(C, "gunzip -c $snps | ");
-#chr     pos     ref     alt     line_304        line_307        line_357        line_360        line_399        line_517
 while(my $line = <C>){
     chomp $line;
     my @c = split(/\t/, $line);
@@ -36,7 +35,7 @@ while(my $line = <C>){
 close C;
 print "Total distinguishing SNPs = ", $total, "\n";
 
-my $bed = "ALL_SNPs.bed";
+my $bed = "ALL_SNPs.bed"; ##output bed formatted file
 unlink(qq{$bed});
 open(A, "<$pos");
 open(D, ">>$output");
