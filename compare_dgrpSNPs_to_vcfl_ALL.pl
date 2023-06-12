@@ -2,18 +2,16 @@
 
 use strict;
 
-my $input = shift(@ARGV) or die; #SNPs_for_AG_Denovo_in_FRT
-my $dir = shift(@ARGV) or die; #/data/julie/FemaleRT/
+my $input = shift(@ARGV) or die; #Output file from Identify_SNPs.pl
+my $dir = shift(@ARGV) or die; #specify the directory with the vcf files
 
 my %diffsnps = ();
 my %conv = ();
 my %id = ();
-my %snps = (); #ref and alt
+my %snps = (); 
 open(A, "<$input");
 while(my $line = <A>){
     chomp $line;
-    ##I need to identify for each female line which sites are distinguishing between it and 517
-
     ##chr     pos     ref     alt     line_304        line_307        line_357        line_360        line_399        line_517        GeneID     GeneName
     my @a = split(/\t/, $line);
     if($line =~ m/^chr/){
@@ -48,7 +46,7 @@ foreach my $vcf (@vcf){
     
     my $id = $v[0];
     $id =~ s/_ALL//;
-    $id =~ s/_\D+//; ##ID should be the line number now
+    $id =~ s/_\D+//; 
     
     open(X, ">>$out");
     print X $id, "\t", "517", "\t", "chr", "\t", "pos", "\t", $id, "_SNP", "\t", "517_SNP", "\t", "vcfSNP", "\t", "Ref_cov", "\t", "Alt_cov", "\t", "RefSNP", "\t", "AltSNP", "\n"; # "\t", "GeneID", "\t", "GeneName", "\n";
@@ -57,7 +55,7 @@ foreach my $vcf (@vcf){
 	chomp $line;
 	if($line !~ m/^#/){
 	    my @x = split(/\t/, $line);
-	    if(exists($diffsnps{$id . "\t" . "517" . "\t" . $x[0] . "\t" . $x[1]})){ #this is one to check for that comparison
+	    if(exists($diffsnps{$id . "\t" . "517" . "\t" . $x[0] . "\t" . $x[1]})){ 
 		$snps{$id . "\t" . "517" . "\t" . $x[0] . "\t" . $x[1]} = $x[3] . "\t" . $x[4];
 		my @y = split(/;/, $x[7]);
 		
@@ -91,7 +89,3 @@ foreach my $vcf (@vcf){
     close V;
     close X;
 }
-
-#while((my $k, my $v) = each(%diffsnps)){
-#    print $k, "\t", $v, "\n";
-#}
