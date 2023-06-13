@@ -2,8 +2,8 @@
 
 use strict;
 
-my $indir = shift(@ARGV) or die;
-my $output = shift(@ARGV) or die;
+my $indir = shift(@ARGV) or die; #the directory with the output files from stringtie
+my $output = shift(@ARGV) or die; 
 unlink(qq{$output});
 
 
@@ -26,7 +26,7 @@ foreach my $file (@abund){
         if($line !~ m/TPM/){
             my @a = split(/\t/, $line);
             $genes{$a[0]} = 1;
-            $data{$id . "\t" . $a[0]} = $a[8]; ##Sex&tissue info \t Gene  =  TPM
+            $data{$id . "\t" . $a[0]} = $a[8]; 
         }
     }
     close A;
