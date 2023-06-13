@@ -2,15 +2,13 @@
 
 use strict;
 
-my $input = shift(@ARGV) or die; ##All_SNPs_with_gene_list
-my $flydir = shift(@ARGV) or die; #/data/FlyRef/Drosophila_melanogaster/6.41/fasta/
+my $input = shift(@ARGV) or die; ##Output from Identify_genes_for_each_site.pl
+my $flydir = shift(@ARGV) or die; #/path to a directory with fasta files downloaded from Flybase and converted to position files with format ##FBgn0031081     FBgn0031081     intron  X       19961846        19963954
 my $output = shift(@ARGV) or die;
 unlink(qq{$output});
 
 
 my %pos = ();
-
-##2R      4993342 None
 open(A, "<$input");
 while(my $line = <A>){
     chomp $line;
