@@ -30,6 +30,7 @@ The order of the scripts is as follows:
 13) get_FRT_high_confidence_expressed_transcripts.pl -  This script produces the male, female or both calls for each gene.
 
 ###At this step parent specific transcripts are generated and used to improve the transcript coverage for genes.
+
 13) make_reference_specific_transcripts.pl - This script generates reference specific transcriptomes using the FlyBase transcriptome files and the SNPs identified in Identify_SNPS.pl
 
 14) update_high_confidence_with_psr_reads.pl - This script updates the male, female or both calls for each gene based on the updated transcript information from the parent specific references.
