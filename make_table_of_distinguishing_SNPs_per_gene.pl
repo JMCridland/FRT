@@ -2,7 +2,7 @@
 
 use strict;
 
-my $input = shift(@ARGV) or die; ##All_SNPs_with_gene_list- this has all the SNPs
+my $input = shift(@ARGV) or die; #output from Identify_genes_for_each_site.pl
 my $indir = shift(@ARGV) or die;
 
 my %pos = ();
@@ -18,7 +18,6 @@ while(my $line = <A>){
 close A;
 
 ###For each cross I want a list of genes and the number of potential distinguishing SNPs
-#I need to know how many genes I get no expression for are due to lack of ability to distinguish the parents  - but this is different for each cross - hmmmm.
 
 opendir DIR, "$indir";
 my @snps = grep {/ALL_distinguishingSNPs$/} readdir DIR;
