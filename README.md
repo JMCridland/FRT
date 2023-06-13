@@ -1,7 +1,7 @@
 # FRT
-code from Male-Derived Transcripts Isolated From Mated Female Reproductive Tract in Drosophila melanogaster
+This is the code associated with "Male-Derived Transcripts Isolated From Mated Female Reproductive Tract in Drosophila melanogaster".
 
-This contains the set of custom perl scripts used to identify distinguishing SNPs between RAL genotypes and use them to identify full length transcripts from the male.
+This contains the set of custom perl scripts used to identify distinguishing SNPs between RAL genotypes and infer male-derived transcripts in the female reproductive tract.
 
 The order of the scripts is as follows:
 
@@ -11,15 +11,13 @@ The order of the scripts is as follows:
 
 3) label_SNPs_by_category.pl - This script takes the output from Identify_genes_for_each_site.pl and labels them by context; i.e. UTR, exon, intron. 
 
-4) run_bcf_for_ALLSNPs.sh - 
+4) compare_dgrpSNPs_to_vcfl_ALL.pl - This script takes the vcf files for each library and compares them to the distinguishing SNPs identified in Identify_SNPs.pl
 
-5) compare_dgrpSNPs_to_vcfl_ALL.pl
+6) find_unexpected_hets.pl - This script identifies regions of residual heterozygosity and masks them from further analysis.
 
-6) find_unexpected_hets.pl
+7) same_snps_in_masked_regions.pl  - This script uses information on masked regions from Lack et al. 2015 to mask these regions from further analysis.
 
-7) same_snps_in_masked_regions.pl 
-
-8) compare_transcripts_between_crosses.pl
+8) compare_transcripts_between_crosses.pl - 
 
 9) add_label_to_combined_counts.pl
 
