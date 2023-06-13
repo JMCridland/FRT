@@ -2,17 +2,11 @@
 
 use strict;
 
-my $indir = shift(@ARGV) or die;#/data/julie/FemaleRT/
-my $tag = shift(@ARGV) or die;##using the transcript_coverage files 
+my $indir = shift(@ARGV) or die;#path to the transcript files
+my $tag = shift(@ARGV) or die;##the label at the end of the files to grep for
 my $snpmin = shift(@ARGV) or die;##the number of SNPs
 my $covmin = shift(@ARGV) or die;##the minimum total coverage
-my $tpercent = shift(@ARGV) or die; ##moving to 75%
-
-###I am doing this in a by gene way using the longest transcript (CDS)
-#my $percentmaletrans = 1; ##percentage of the observed female transcript length required for the male transcript
-#my $percentmaleSNPs = 0.9; #the percentage I require of male SNPs for total female SNPs
-#my $output = shift(@ARGV) or die;
-#unlink(qq{$output});
+my $tpercent = shift(@ARGV) or die; ##the percent coverage of the transcript
 
 opendir DIR, "$indir";
 my @trans = grep{/\.$tag/} readdir DIR;
@@ -20,8 +14,7 @@ closedir DIR;
    
 foreach my $transcript (@trans){ #these are the files with the male and female coverage per gene
     ###I want to impose a minimum number of SNPs per transcript (male or female)
-    ###I also need a minimum transcript coverage - 10? over SNPs
-    ###to consider a male transcript I want it to have a minimum percentage of the SNPs I see in the female transcript
+    ###I also need a minimum transcript coverag
     my @f = split(/\./, $transcript);
     
     if($f[0] =~ m/_/){ ##I only want to look at the ones that are RAL and Tissue i.e. 304_SR	
@@ -52,17 +45,12 @@ foreach my $transcript (@trans){ #these are the files with the male and female c
 		if(($fcov >= $covmin) and ($fnumSNPs >= $snpmin) and ($ftrans >= $tpercent)){ ##start with 10 and 3
 		    $female = 1;
 		    $keep = 1;
-		 #   if(($mnumSNPs >= ($fnumSNPs * $percentmaleSNPs)) and ($mcov >= $covmin) and ($mtrans >= $tpercent) and ($mtrans >= ($ftrans * $percentmaletrans))){##is it also expressed in the male?
-		#    if(($mnumSNPs >= $snpmin) and ($mcov >= $covmin) and ($mtrans >= $tpercent) and ($mtrans >= ($ftrans * $percentmale))){
-			###currently requiring at least some percentage of the SNPs in female and the same transcript coverage
-		#	$male = 1;
-		  #  }	    
-		}#else{##Did not meet female transcript minimum - is it in the male?
+		}
 		if(($mcov >= $covmin) and ($mnumSNPs >= $snpmin) and ($mtrans >= $tpercent)){##is it also expressed in the male?
 		    $male = 1;
 		    $keep = 1;
 		}
-		#}
+		
 		###Now determine if I am calling things Female, Male, Both or Neither
 		my $tag = "";
 		if(($female == 1) and ($male == 1)){
@@ -74,10 +62,7 @@ foreach my $transcript (@trans){ #these are the files with the male and female c
 		}elsif(($female == 0) and ($male == 0)){
 		    $tag = "Neither";
 		}
-
-		#if($keep == 1){
-		    print B $line, "\t", $tag, "\n";
-		#}
+		print B $line, "\t", $tag, "\n";
 	    }
 	}
 	close T;
