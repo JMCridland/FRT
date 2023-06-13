@@ -2,13 +2,13 @@
 
 use strict;
 
-my $input = shift(@ARGV) or die;#ALL_SNPs_table
-my $dir = shift(@ARGV) or die;
+my $input = shift(@ARGV) or die;#Output from Identify_SNPs.pl
+my $dir = shift(@ARGV) or die; ##path to vcf files
 
 my %samesnps = ();
 my %conv = ();
 my %id = ();
-my %snps = (); #ref and alt
+my %snps = (); 
 open(A, "<$input");
 while(my $line = <A>){
     chomp $line;
