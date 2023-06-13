@@ -2,10 +2,10 @@
 
 use strict;
 
-my $indir = shift(@ARGV) or die;## I need to look at the gene_info files - these have info at the SNP level
-my $tag = shift(@ARGV) or die;# *gene.info  I want to do this in the RAL_Tissue set - since there may be differences in degraded transcripts between tissues???
-my $cov = shift(@ARGV) or die; ##maybe start with 3 to keep a snp for the calculations
-my $cdsdir = shift(@ARGV) or die; #/data/julie/Dmel_" . CDS or transcript . "_lookup/";
+my $indir = shift(@ARGV) or die;#path to the directory with the gene.info files output from add_label_to_combined_counts.pl
+my $tag = shift(@ARGV) or die;# *gene.info  
+my $cov = shift(@ARGV) or die; # the minimum coverage
+my $cdsdir = shift(@ARGV) or die; #/directory with the output files from get_intron_exon_longest_transcript.pl
 
 opendir DIR2, "$cdsdir";
 my @lookup = grep {/\.lookup/} readdir DIR2;
@@ -32,8 +32,6 @@ opendir DIR, "$indir";
 my @counts = grep{/\.$tag/} readdir DIR;
 closedir DIR;
 
-##Nep3-PA type=CDS; loc=X:join(19963955..19964071,19964782..19964944,19965006..19965126,19965197..19965511,19965577..19966071,19966183..19967012,19967081..19967223,19967284..19967460); name=Nep3-RA; dbxref=FlyBase:FBpp0070000,FlyBase_Annotation_IDs:CG9565-PA,REFSEQ:NP_523417,GB_protein:AAF45370,UniProt/Swiss-Prot:Q9W5Y0,FlyMine:FBpp0070000,modMine:FBpp0070000; MD5=5c3c0b466b23e32d99dfff926a5e8c6b; length=2361; parent=FBgn0031081,FBtr0070000; release=r6.41; species=Dmel; 
-
 foreach my $counts (@counts){
     my @f = split(/\./, $counts);
     if($f[0] =~ m/_/){ ##I only want to look at the ones that are RAL and Tissue i.e. 304_SR
@@ -52,14 +50,12 @@ foreach my $counts (@counts){
 	while(my $line = <A>){
 	    ##chr     pos     FemaleCov       MaleCov GeneInfo
 	    #2R      13838828        1       0       FBgn0033874:exon,CDS,gene
-	    ### maybe start with CDS?
 	    if($line !~ m/GeneInfo/){
 		my @a = split(/\t/, $line);
 		my @b = split(/:/, $a[4]);
 
-		if(($line =~ m/exon/) or ($line =~ m/UTR/)){###start with just coding SNPs
-		    ##First screen the SNP for inclusion -
-		    ###female
+		if(($line =~ m/exon/) or ($line =~ m/UTR/)){
+
 		    if(exists($position{$b[0] . "\t" . $a[1]})){ #position is part of the longest transcript
 			if($a[2] >= $cov){
 			    $keep{$b[0]} = 1;
@@ -122,15 +118,10 @@ foreach my $counts (@counts){
 		$flast{$k} = "NA";
 		$fcov{$k} = 0;
 	    }
-	    
-	    ###now I can calculate the % coverage - this is going to be tricky to interpret I think
 	    my $mlen = 0;
 	    my $flen = 0;
 	    
 	    if($flast{$k} !~ m/NA/){
-	#	if(!(exists($position{$flast{$k}}))){
-	#	    print $k, "\t", $flast{$k}, "\n";			
-	#	}
 		$flen = abs($position{$k . "\t" . $flast{$k}} - $position{$k . "\t" . $ffirst{$k}}) + 1;		
 	    }
 	    if($mlast{$k} !~ m/NA/){	  
