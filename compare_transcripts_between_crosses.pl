@@ -2,8 +2,8 @@
 
 use strict;
 
-my $SNPs = shift(@ARGV) or die; 
-my $indir = shift(@ARGV) or die;
+my $SNPs = shift(@ARGV) or die; #the output from label_SNPs_by_category.pl 
+my $indir = shift(@ARGV) or die; #the path to the directory with both the distinguishing SNP and masked files
 
 my %keep = ();
 my %klist = ();
