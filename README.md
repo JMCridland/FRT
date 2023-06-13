@@ -13,11 +13,11 @@ The order of the scripts is as follows:
 
 4) compare_dgrpSNPs_to_vcfl_ALL.pl - This script takes the vcf files for each library and compares them to the distinguishing SNPs identified in Identify_SNPs.pl
 
-6) find_unexpected_hets.pl - This script identifies regions of residual heterozygosity and masks them from further analysis.
+5) find_unexpected_hets.pl - This script identifies regions of residual heterozygosity and masks them from further analysis.
 
-7) same_snps_in_masked_regions.pl  - This script uses information on masked regions from Lack et al. 2015 to mask these regions from further analysis.
+6) same_snps_in_masked_regions.pl  - This script uses information on masked regions from Lack et al. 2015 to mask these regions from further analysis.
 
-8) make_table_of_distinguishing_SNPs_per_gene.pl - This script produces a table with the number of distinguishing SNPs per library.
+7) make_table_of_distinguishing_SNPs_per_gene.pl - This script produces a table with the number of distinguishing SNPs per library.
 
 8) compare_transcripts_between_crosses.pl - This script takes the output from label_SNPs_by_category.pl the distinguishing SNPs and the masking information to produce sex specific counts at each SNP.
 
@@ -25,15 +25,14 @@ The order of the scripts is as follows:
 
 10) get_intron_exon_longest_transcript.pl - This produces a set of files with positional information for the longest transcript from each gene using dmel-all-transcript-r6.41.fasta.gz downloaded from Flybase.
 
-12) get_transcript_cov_from_SNPs.pl
+11) get_transcript_cov_from_SNPs.pl - This script takes the output from add_label_to_combined_counts.pl and generates the coverage of each transcript. 
 
-13) get_FRT_high_confidence_expressed_transcripts.pl
+13) get_FRT_high_confidence_expressed_transcripts.pl -  This script produces the male, female or both calls for each gene.
 
 ###At this step parent specific transcripts are generated and used to improve the transcript coverage for genes.
-14) make_reference_specific_transcripts.pl 
+13) make_reference_specific_transcripts.pl - This script generates reference specific transcriptomes using the FlyBase transcriptome files and the SNPs identified in Identify_SNPS.pl
 
-15) update_high_confidence_with_psr_reads.pl
+14) update_high_confidence_with_psr_reads.pl - This script updates the male, female or both calls for each gene based on the updated transcript information from the parent specific references.
 
-16) make_FRT_abund.pl
 
 
