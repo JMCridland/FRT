@@ -2,15 +2,11 @@
 
 use strict;
 
-my $transcript = shift(@ARGV) or die;#/data/FlyRef/Drosophila_melanogaster/6.41/fasta/dmel-transcript-reformatted.fasta.gz
-my $ncRNA = shift(@ARGV) or die; #/data/FlyRef/Drosophila_melanogaster/6.41/fasta/dmel-ncRNA-reformatted.fasta.gz
-my $snps = shift(@ARGV) or die; #ALL_SNPs_table
+my $transcript = shift(@ARGV) or die;#dmel-transcript-reformatted.fasta.gz
+my $ncRNA = shift(@ARGV) or die; #dmel-ncRNA-reformatted.fasta.gz
+my $snps = shift(@ARGV) or die; #The output file from Identify_SNPs.pl
 my $lookupdir = shift(@ARGV) or die; #the directory with the lookup tables
 
-#my $out = shift(@ARGV) or die;
-#unlink(qq{$out});
-
-###I am going to need the transcript fastas - I want the longest transcript for each gene
 my %pID = (); ##FBgn
 my %fasta = ();##store longest fasta
 my %length = ();
@@ -20,7 +16,7 @@ my $id = "";
 my @tr = ($transcript,$ncRNA);
 foreach my $tr (@tr){
     open(T, "gunzip -c $tr | "); ##First go through the CDS file and find the longest
-    ###The minus strand transcripts must be reverse complemented!!
+ 
   LOOP:while(my $line = <T>){
       chomp $line;
       if($line =~ m/^>/){
@@ -106,14 +102,13 @@ while(my $line = <S>){
 close S;
 print "SNPs stored\n";
 my @lines = (304,307,360,399,517);
-my %trans_out = (); #stores the finished transcripts - I need a full set for each line
+my %trans_out = (); #
 while((my $k, my $v) = each(%fasta)){ #initializing these with a reference copy of the longest transcript
     foreach my $l (@lines){
 	$trans_out{$k . "\t" . $l} = $v; ### GeneID   Line
     }
 }
 print "Line specific transcritps stored\n";
-###Now that I have all the SNPs stored and have the transcripts stored I need to update them using the *transcript.lookup
 opendir DIR, "$lookupdir";
 my @look = grep{/\.lookup$/} readdir DIR;
 closedir DIR;
@@ -123,36 +118,21 @@ foreach my $file (@look){##this stores the lookup - only need positions that are
     $file = $lookupdir . $file;
     open(X, "<$file");
     while(my $line = <X>){
-	###I need chrom pos gene to within transcript position
-	#FBgn0038272     1510    3R      1       14892392 - I had to update these to 1 base start positions!!!!!
 	my @x = split(/\s+/, $line);
 	if(exists($usedpos{$x[0] . "\t" . $x[2] . "\t" . $x[4]})){
-	    $genepos{$x[0] . "\t" . $x[2] . "\t" . $x[4]} = $x[3]; #to keep track of which transcript position to update
+	    $genepos{$x[0] . "\t" . $x[2] . "\t" . $x[4]} = $x[3]; #
 	}
     }
     close X;
 }
 print "Lookup positions stored\n";
-#open(Z, ">>$out");
-##The transcript sequence is always given in the plus strand order - so I just need to update by position
 while((my $k, my $v) = each(%variant)){
     # Line chrom pos gene = SNP
     my @var = split(/\t/, $k);
     if(exists($trans_out{$var[3] . "\t" . $var[0]})){
 	if(exists($genepos{$var[3] . "\t" . $var[1] . "\t" . $var[2]})){
-#	    print Z $var[3], "\t",  $k, "\t", $v, "\n";
-	    
-#	    print Z  $var[3], "\t", $genepos{$var[3] . "\t" . $var[1] . "\t" . $var[2]}, "\n";
-	    ##Get the right transcript
-#	    print Z  $var[3], "\t", $trans_out{$var[3] . "\t" . $var[0]}, "\n";
-	    
-	    ##Expr   Offset   Length   Replacement
+
 	    substr($trans_out{$var[3] . "\t" . $var[0]}, ($genepos{$var[3] . "\t" . $var[1] . "\t" . $var[2]} - 1), 1, $v);
-	  #  substr($trans_out{$var[3] . "\t" . $var[0]}, 5, 1, "X");
-	    
-#	    print Z $var[3], "\t", $trans_out{$var[3] . "\t" . $var[0]}, "\n";    
-	    
-	    #print X $k, "\t", $v, "\n";
 	}
     }
 }
