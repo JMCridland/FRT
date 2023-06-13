@@ -2,8 +2,8 @@
 
 use strict;
 
-my $input = shift(@ARGV) or die; #Lack_tableS3.txt
-my $same = shift(@ARGV) or die;
+my $input = shift(@ARGV) or die; #Lack_tableS3.txt this is a supplementary file from Lack et al. 
+my $same = shift(@ARGV) or die;#the SNPs to mask
 my $output = shift(@ARGV) or die;
 unlink(qq{$output});
 
@@ -11,18 +11,11 @@ my @s = split(/_/, $same);
 my $id = "RAL-" . $s[0];
 my %lines = ();
 
-#$lines{"RAL-304"} = 304;
-#$lines{"RAL-307"} = 307;
-#$lines{"RAL-357"} = 357;
-#$lines{"RAL-360"} = 360;
-#$lines{"RAL-399"} = 399;
 $lines{$id} = $s[0];
 $lines{"RAL-517"} = 517;
 
 my %remove = (); #residual heterozygosity
 open(A, "<$input");
-#this is that weird file that is actually three tables, but poorly formatted so I really only care about the first four columns
-#Line	Chrom	Start	Stop			Line	Chrom	Start	Stop			Line	True Heterozygosity	Masked
 while(my $line = <A>){
     chomp $line;
     my @a = split(/\s+/, $line);
