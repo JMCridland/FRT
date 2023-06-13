@@ -2,16 +2,8 @@
 
 use strict;
 
-my $cds = shift(@ARGV) or die; #/data/FlyRef/Drosophila_melanogaster/6.41/fasta/dmel-all-CDS...
-my $outdir = shift(@ARGV) or die;#/data/julie/Dmel_CDS_lookup/
-###For each gene I need to make a lookup table with the position in the CDS and the position of each snp
-####Pos    ChPos
-####1      400000
-####2      400001
-
-
-
-##Nep3-PA type=CDS; loc=X:join(19963955..19964071,19964782..19964944,19965006..19965126,19965197..19965511,19965577..19966071,19966183..19967012,19967081..19967223,19967284..19967460); name=Nep3-RA; dbxref=FlyBase:FBpp0070000,FlyBase_Annotation_IDs:CG9565-PA,REFSEQ:NP_523417,GB_protein:AAF45370,UniProt/Swiss-Prot:Q9W5Y0,FlyMine:FBpp0070000,modMine:FBpp0070000; MD5=5c3c0b466b23e32d99dfff926a5e8c6b; length=2361; parent=FBgn0031081,FBtr0070000; release=r6.41; species=Dmel; 
+my $cds = shift(@ARGV) or die; #dmel-all-CDS-r6.41.fasta.gz - downloaded from FlyBase
+my $outdir = shift(@ARGV) or die;#path to the output directory
 
 my %pID = (); ##FBgn
 my %length = (); #longest CDS
@@ -72,7 +64,6 @@ while(my $line = <T>){
 
 while((my $k, my $v) = each(%pID)){
   #  print $k, "\n";
-    ##I need to sort the location string and print out a table for each gene
     my $output = $outdir . $k . ".CDS.lookup";
     unlink(qq{$output});
 
