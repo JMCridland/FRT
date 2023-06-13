@@ -2,13 +2,7 @@
 
 use strict;
 
-##I want to make a table that combines the information across all crosses and tissues for each gene/SNP
-
-##I need to do this at the SNP level
-#I'd like to compare within a cross - 304 (three tissues) 307 (three tissues) 360 (1 tissue) 399 (1 tissue)
-##I'd also like to compare within a tissue SR, ST and PV
-
-my $SNPs = shift(@ARGV) or die; #All_SNPs_with_genes_and_category - 
+my $SNPs = shift(@ARGV) or die; 
 my $indir = shift(@ARGV) or die;
 
 my %keep = ();
