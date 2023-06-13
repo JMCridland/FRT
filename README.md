@@ -29,7 +29,8 @@ The order of the scripts is as follows:
 
 13) get_FRT_high_confidence_expressed_transcripts.pl
 
-14) make_reference_specific_transcripts.pl
+###At this step parent specific transcripts are generated and used to improve the transcript coverage for genes.
+14) make_reference_specific_transcripts.pl 
 
 15) update_high_confidence_with_psr_reads.pl
 
