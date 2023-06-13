@@ -17,11 +17,13 @@ The order of the scripts is as follows:
 
 7) same_snps_in_masked_regions.pl  - This script uses information on masked regions from Lack et al. 2015 to mask these regions from further analysis.
 
-8) compare_transcripts_between_crosses.pl - 
+8) make_table_of_distinguishing_SNPs_per_gene.pl - This script produces a table with the number of distinguishing SNPs per library.
 
-9) add_label_to_combined_counts.pl
+8) compare_transcripts_between_crosses.pl - This script takes the output from label_SNPs_by_category.pl the distinguishing SNPs and the masking information to produce sex specific counts at each SNP.
 
-10) get_intron_exon_longest_transcript.pl
+9) add_label_to_combined_counts.pl - This script takes the output from compare_transcripts_between_crosses and adds information about the gene associated with each SNP using the output from label_SNPs_by_category.pl.
+
+10) get_intron_exon_longest_transcript.pl - This produces a set of files with positional information for the longest transcript from each gene using dmel-all-transcript-r6.41.fasta.gz downloaded from Flybase.
 
 12) get_transcript_cov_from_SNPs.pl
 
