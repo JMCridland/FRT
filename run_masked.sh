@@ -1,7 +1,7 @@
 #!sh
-
-perl /home/juliecridland/scripts/same_snps_in_masked_regions.pl Lack_parsed_tableS3.txt 304_ST_ALL_Same_snps 304_ST_Same_masked
-perl /home/juliecridland/scripts/same_snps_in_masked_regions.pl Lack_parsed_tableS3.txt 304_SR_ALL_Same_snps 304_SR_Same_masked
+###masks files for 
+perl same_snps_in_masked_regions.pl Lack_parsed_tableS3.txt 304_ST_ALL_Same_snps 304_ST_Same_masked
+perl same_snps_in_masked_regions.pl Lack_parsed_tableS3.txt 304_SR_ALL_Same_snps 304_SR_Same_masked
 perl /home/juliecridland/scripts/same_snps_in_masked_regions.pl Lack_parsed_tableS3.txt 304_PV_ALL_Same_snps 304_PV_Same_masked
 perl /home/juliecridland/scripts/same_snps_in_masked_regions.pl Lack_parsed_tableS3.txt 307_ST_ALL_Same_snps 307_ST_Same_masked
 perl /home/juliecridland/scripts/same_snps_in_masked_regions.pl Lack_parsed_tableS3.txt 307_SR_ALL_Same_snps 307_SR_Same_masked
