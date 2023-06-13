@@ -17,15 +17,13 @@ The order of the scripts is as follows:
 
 6) find_unexpected_hets.pl
 
-7) run_masked.sh - runs copies of same_snps_in_masked_regions.pl for multiple input files
+7) same_snps_in_masked_regions.pl 
 
 8) compare_transcripts_between_crosses.pl
 
 9) add_label_to_combined_counts.pl
 
-10) get_intron_exon_longest_CDS.pl
-
-11) get_intron_exon_longest_transcript.pl
+10) get_intron_exon_longest_transcript.pl
 
 12) get_transcript_cov_from_SNPs.pl
 
