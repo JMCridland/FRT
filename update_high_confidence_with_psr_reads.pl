@@ -3,8 +3,8 @@
 ###The idea here is to update my calls for some of the transcripts based on information from the transcript in other tissues in the same cross and the parent specific read information
 use strict;
 
-my $indir = shift(@ARGV) or die; #/data/julie/FemaleRT/
-my $indir2 = shift(@ARGV) or die; #/data/julie/FemaleRT/PSR/
+my $indir = shift(@ARGV) or die; #the directory with the transcripts to update
+my $indir2 = shift(@ARGV) or die; #the directory with the parent specific informations
 
 opendir DIR, "$indir";
 my @high = grep{/\.high_confidence\.transcripts$/} readdir DIR;
